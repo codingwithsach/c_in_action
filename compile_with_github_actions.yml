@@ -7,7 +7,7 @@
         echo '#include <stdio.h>
 
         int main() {
-            printf("Compiled in GitHub Actions CI pipeline!\\n");
+            printf("Hello Wallo\\n");
             return 0;
         }' > github_actions_program.c
 
@@ -16,10 +16,7 @@
         git config --global user.email "sajjad.ahmedali@gmail.com"
         git config --global user.name "codingwithsach"
         git add github_actions_program.c
-        git commit -m "Initial commit"
-
-        # Set default branch name
-        git config --global init.defaultBranch main  # Adjust if your default branch is not 'main'
+        git commit -m "print walo"
 
         # Create GitHub Actions workflow file
         mkdir -p .github/workflows
@@ -41,7 +38,7 @@
                 run: ./github_actions_program' > .github/workflows/ci.yml
 
         # Add GitHub remote with Personal Access Token (PAT)
-        git remote add origin https://codingwithsach:ANSIBLE_ACTION@github.com/codingwithsach/c_in_action.git
+        git remote add origin https://codingwithsach:C_IN_ACTION@github.com/codingwithsach/c_in_action.git
 
         # Push to GitHub
         git push -u origin main  # Note: Changed `master` to `main` if GitHub repository is configured with `main` branch
