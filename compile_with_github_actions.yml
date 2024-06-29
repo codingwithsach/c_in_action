@@ -1,0 +1,49 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Simulate CI pipeline for C program compilation using GitHub Actions
+      ansible.builtin.shell: |
+        # Create C program file
+        echo '#include <stdio.h>
+
+        int main() {
+            printf("Compiled in GitHub Actions CI pipeline!\\n");
+            return 0;
+        }' > github_actions_program.c
+
+        # Initialize Git repository
+        git init
+        git config --global user.email "sajjad.ahmedali@gmail.com"
+        git config --global user.name "codingwithsach"
+        git add github_actions_program.c
+        git commit -m "Initial commit"
+
+        # Set default branch name
+        git config --global init.defaultBranch main  # Adjust if your default branch is not 'main'
+
+        # Create GitHub Actions workflow file
+        mkdir -p .github/workflows
+        echo 'name: CI
+
+        on:
+          push:
+            branches:
+              - main  # Adjust if your default branch is not 'main'
+
+        jobs:
+          build:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v2
+              - name: Compile C program
+                run: gcc -o github_actions_program github_actions_program.c
+              - name: Run program
+                run: ./github_actions_program' > .github/workflows/ci.yml
+
+        # Add GitHub remote with Personal Access Token (PAT)
+        git remote add origin https://codingwithsach:ANSIBLE_ACTION@github.com/codingwithsach/c_in_action.git
+
+        # Push to GitHub
+        git push -u origin main  # Note: Changed `master` to `main` if GitHub repository is configured with `main` branch
+      args:
+        executable: /bin/bash
