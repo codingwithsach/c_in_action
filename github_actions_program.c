@@ -1,6 +1,6 @@
 #include <stdio.h>
 
 int main() {
-    printf("Compiled in GitHub Actions CI pipeline!\\n");
+    printf("Hello World\\n");
     return 0;
 }
